@@ -1,6 +1,6 @@
 baseURL = 'http://cloud.lyndeno.ca/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Lyndon Sanche'
 theme = "lsanche"
 
 [menu]

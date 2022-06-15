@@ -23,5 +23,8 @@
       };
       default = packages.website;
     };
+    devShells.default = pkgs.mkShell {
+      buildInputs = packages.default.buildInputs;
+    };
   });
 }
