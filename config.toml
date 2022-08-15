@@ -21,3 +21,14 @@ theme = "lsanche"
     pre = "tag"
     url = "/tags/"
     weight = 3
+
+[markup.highlight]
+	codeFences = true
+	guessSyntax = true
+	h1_Lines = ""
+	lineNoStart = 1
+	lineNos = true
+	lineNumbersInTable = true
+	tabWidth = 4
+	noClasses = true
+	style = "dracula"

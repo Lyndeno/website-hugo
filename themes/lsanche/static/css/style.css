@@ -6,6 +6,30 @@
   padding: 10px;
 }
 
+.container {
+	text-align: center;
+}
+
 .nav-link {
   padding: 10px;
+}
+
+.list-item {
+	background: #aaaaaa;
+	border-radius: 20px;
+	margin: 10px 10px;
+	padding: 10px;
+}
+
+.padded {
+	margin: 10px 10px;
+	padding: 10px;
+}
+
+.summary {
+	background: #aaaaaa;
+}
+
+#content {
+	padding: 5px 20px;
 }
