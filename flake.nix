@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    flake-utils.url = github:numtide/flake-utils;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, nixpkgs, flake-utils }:
@@ -10,7 +10,7 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in rec {
     packages = {
-      website = pkgs.stdenvNoCC.mkDerivation rec {
+      website = pkgs.stdenvNoCC.mkDerivation {
         name = "lyndeno.ca";
         src = self;
         buildInputs = [ pkgs.coreutils pkgs.hugo ];
