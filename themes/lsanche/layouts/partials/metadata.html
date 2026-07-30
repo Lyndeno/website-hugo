@@ -1,9 +1,20 @@
-{{ $dateTime := .PublishDate.Format "2006-01-02" }}
-{{ $dateFormat := .Site.Params.dateFormat | default "Jan 2, 2006" }}
-<time datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time>
-{{ with .Params.tags }}
-{{ range . }}
-{{ $href := print (absURL "tags/") (urlize .) }}
-<a class="btn btn-sm btn-outline-dark tag-btn" href="{{ $href }}">{{ . }}</a>
-{{ end }}
-{{ end }}
+{{- $dateTime := .PublishDate.Format "2006-01-02" -}}
+{{- $dateFormat := .Site.Params.dateFormat | default "Jan 2, 2006" -}}
+<div class="post-meta">
+  <span class="meta-item">{{ partial "icon.html" "calendar" }}<time datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time></span>
+  {{- if .IsPage }}
+  <span class="meta-item">{{ partial "icon.html" "clock" }}{{ .ReadingTime }} min read</span>
+  {{- end }}
+  {{- with .Params.categories }}
+  <span class="meta-item">{{ partial "icon.html" "folder" }}
+    {{- range $i, $c := . }}{{ if $i }}, {{ end }}<a href="{{ (print "/categories/" ($c | urlize) "/") | relURL }}">{{ $c }}</a>{{ end -}}
+  </span>
+  {{- end }}
+</div>
+{{- with .Params.tags }}
+<div class="post-tags">
+  {{- range . }}
+  <a class="tag-btn" href="{{ (print "/tags/" (. | urlize) "/") | relURL }}">#{{ . }}</a>
+  {{- end }}
+</div>
+{{- end }}

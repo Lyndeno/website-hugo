@@ -1,10 +1,22 @@
 {{ define "main" }}
-<div class="text-center">
-  <h1 class="title">{{ .Site.Title }}</h1>
-</div>
+<section class="home-intro">
+  {{ .Content }}
+</section>
 
-<article>
-{{ .Content }}
-</article>
-
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ with $posts }}
+<section class="home-recent">
+  <h2>Recent posts</h2>
+  <ul class="post-list">
+    {{ range first 5 (.ByPublishDate.Reverse) }}
+    <li class="post-list-item">
+      <h3 class="post-list-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      {{ partial "metadata.html" . }}
+      <p class="post-list-summary">{{ .Summary | plainify | truncate 220 }}</p>
+    </li>
+    {{ end }}
+  </ul>
+  <p class="home-all"><a href="{{ "/posts/" | relURL }}">All posts &rarr;</a></p>
+</section>
+{{ end }}
 {{ end }}

@@ -1,0 +1,35 @@
+<aside id="sidebar">
+  <div class="sidebar-inner">
+    <div class="site-identity">
+      {{- with .Site.Params.avatar }}
+      <a href="{{ "/" | relURL }}" class="avatar-link">
+        <img class="avatar" src="{{ . | relURL }}" alt="{{ $.Site.Params.author | default $.Site.Title }}" loading="lazy">
+      </a>
+      {{- end }}
+      <h1 class="site-title"><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></h1>
+      {{- with .Site.Params.tagline }}<p class="site-tagline">{{ . }}</p>{{ end }}
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        {{- range .Site.Menus.main }}
+        {{- $active := or (eq $.RelPermalink .URL) (and (ne .URL "/") (hasPrefix $.RelPermalink .URL)) }}
+        <li{{ if $active }} class="active"{{ end }}>
+          <a href="{{ .URL | relURL }}">
+            {{- with .Pre }}{{ partial "icon.html" . }}{{ end -}}
+            <span>{{ .Name }}</span>
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </nav>
+
+    <div class="sidebar-social">
+      {{- range .Site.Params.social }}
+      <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}"{{ if hasPrefix .url "http" }} target="_blank" rel="noopener"{{ end }}>
+        {{- partial "icon.html" .icon -}}
+      </a>
+      {{- end }}
+    </div>
+  </div>
+</aside>

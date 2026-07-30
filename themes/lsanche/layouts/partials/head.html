@@ -1,8 +1,50 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  {{ $title := print .Site.Title " | " .Title }}
-  {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
-  <title>{{ $title }}</title>
+
+  {{- $title := .Title -}}
+  {{- $siteTitle := .Site.Title -}}
+  {{- $fullTitle := printf "%s | %s" $title $siteTitle -}}
+  {{- if .IsHome }}{{ $fullTitle = $siteTitle }}{{ end -}}
+  <title>{{ $fullTitle }}</title>
+
+  {{- $desc := .Params.description | default .Summary | default .Site.Params.description -}}
+  <meta name="description" content="{{ $desc | plainify | truncate 200 }}">
+  {{- with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ $fullTitle }}">
+  <meta property="og:description" content="{{ $desc | plainify | truncate 200 }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ $siteTitle }}">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <!-- Favicons -->
+  {{- $fav := "assets/img/favicons" }}
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ (printf "%s/apple-icon-180x180.png" $fav) | relURL }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ (printf "%s/favicon-32x32.png" $fav) | relURL }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ (printf "%s/favicon-16x16.png" $fav) | relURL }}">
+  <link rel="shortcut icon" href="{{ (printf "%s/favicon.ico" $fav) | relURL }}">
+  <link rel="manifest" href="{{ (printf "%s/manifest.json" $fav) | relURL }}">
+  <meta name="msapplication-config" content="{{ (printf "%s/browserconfig.xml" $fav) | relURL }}">
+  <meta name="theme-color" content="#2a1e6b">
+
+  <!-- Feeds -->
+  {{ range .AlternativeOutputFormats -}}
+  <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $siteTitle }}">
+  {{ end -}}
+
+  <link rel="stylesheet" type="text/css" href="{{ "css/style.css" | relURL }}">
+
+  <!-- Set theme before paint to avoid flash -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 </head>

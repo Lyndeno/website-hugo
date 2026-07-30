@@ -1,7 +1,47 @@
-baseURL = 'http://cloud.lyndeno.ca/'
+baseURL = 'https://lyndeno.ca/'
 languageCode = 'en-us'
 title = 'Lyndon Sanche'
 theme = "lsanche"
+enableRobotsTXT = true
+
+# Generate an RSS feed for the whole site and for the posts section.
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+# Emit the RSS feed as /feed.xml to match the old Jekyll site.
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "feed"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[params]
+  description = "Lyndon Sanche is a software developer and open source enthusiast. He likes to write Nix and Rust code."
+  tagline = "Software Developer, Electrical Engineer in Training"
+  author = "Lyndon Sanche"
+  email = "lsanche@lyndeno.ca"
+  avatar = "/assets/img/avatar.jpg"
+  dateFormat = "Jan 2, 2006"
+
+  [[params.social]]
+    name = "GitHub"
+    icon = "github"
+    url = "https://github.com/Lyndeno"
+  [[params.social]]
+    name = "LinkedIn"
+    icon = "linkedin"
+    url = "https://www.linkedin.com/in/LyndonSanche"
+  [[params.social]]
+    name = "Email"
+    icon = "mail"
+    url = "mailto:lsanche@lyndeno.ca"
+  [[params.social]]
+    name = "RSS"
+    icon = "rss"
+    url = "/feed.xml"
 
 [menu]
   [[menu.main]]
@@ -15,20 +55,45 @@ theme = "lsanche"
     pre = "pen-tool"
     url = "/posts/"
     weight = 2
-  
+
+  [[menu.main]]
+    name = "Categories"
+    pre = "folder"
+    url = "/categories/"
+    weight = 3
+
   [[menu.main]]
     name = "Tags"
     pre = "tag"
     url = "/tags/"
-    weight = 3
+    weight = 4
+
+  [[menu.main]]
+    name = "About"
+    pre = "info"
+    url = "/about/"
+    weight = 5
+
+  [[menu.main]]
+    name = "Consulting"
+    pre = "briefcase"
+    url = "/consulting/"
+    weight = 6
 
 [markup.highlight]
-	codeFences = true
-	guessSyntax = true
-	h1_Lines = ""
-	lineNoStart = 1
-	lineNos = true
-	lineNumbersInTable = true
-	tabWidth = 4
-	noClasses = true
-	style = "dracula"
+  codeFences = true
+  guessSyntax = true
+  lineNoStart = 1
+  lineNos = true
+  lineNumbersInTable = true
+  tabWidth = 4
+  noClasses = true
+  style = "dracula"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+  ordered = false

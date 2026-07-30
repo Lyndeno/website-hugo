@@ -1,11 +1,45 @@
 <!DOCTYPE html>
-<html>
-    {{- partial "head.html" . -}}
-    <body>
-        {{- partial "header.html" . -}}
-        <div id="content">
-        {{- block "main" . }}{{- end }}
-        </div>
-        {{- partial "footer.html" . -}}
-    </body>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+{{- partial "head.html" . -}}
+<body>
+  <header id="topbar">
+    <button id="sidebar-toggle" aria-label="Toggle menu">{{ partial "icon.html" "menu" }}</button>
+    <a class="topbar-title" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+      {{ partial "icon.html" "sun" }}{{ partial "icon.html" "moon" }}
+    </button>
+  </header>
+
+  {{- partial "sidebar.html" . -}}
+
+  <div id="page-overlay"></div>
+
+  <main id="main">
+    <div id="content">
+      {{- block "main" . }}{{- end }}
+    </div>
+    {{- partial "footer.html" . -}}
+  </main>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('theme-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          var cur = document.documentElement.getAttribute('data-theme');
+          var next = cur === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
+      }
+      var sbToggle = document.getElementById('sidebar-toggle');
+      var overlay = document.getElementById('page-overlay');
+      function closeSidebar() { document.body.classList.remove('sidebar-open'); }
+      if (sbToggle) sbToggle.addEventListener('click', function () {
+        document.body.classList.toggle('sidebar-open');
+      });
+      if (overlay) overlay.addEventListener('click', closeSidebar);
+    })();
+  </script>
+</body>
 </html>
