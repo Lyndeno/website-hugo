@@ -332,6 +332,14 @@ pre {
 pre code { background: none; padding: 0; }
 .highlight { margin: 1.2rem 0; border-radius: var(--radius); overflow: hidden; }
 .highlight pre { margin: 0; }
+/* Inline line numbers: right-align to a fixed width so the code column stays
+   flush whether the line number is one or two digits. */
+.highlight code span[style*="user-select"] {
+  box-sizing: content-box;
+  display: inline-block;
+  min-width: 2ch;
+  text-align: right;
+}
 
 /* ---------------------------------------------------------------------------
    Lists (posts / taxonomies / home)
