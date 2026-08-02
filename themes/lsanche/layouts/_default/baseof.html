@@ -92,16 +92,44 @@
           return loading;
         }
 
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
         function close() {
           results.classList.remove('open');
           results.innerHTML = '';
+          results.style.height = '';
+          results.style.transition = '';
+          results.style.overflow = '';
+          clearTimeout(results._ht);
           active = -1; current = [];
         }
 
+        // Slide the box height when the number of results changes.
+        function slideHeight(startH) {
+          if (startH == null || reduceMotion.matches) { results.style.height = ''; return; }
+          results.style.transition = 'none';
+          results.style.height = 'auto';
+          var endH = results.offsetHeight;
+          if (endH === startH) { results.style.transition = ''; results.style.height = ''; return; }
+          results.style.overflow = 'hidden';
+          results.style.height = startH + 'px';
+          results.offsetHeight; // commit the start height
+          results.style.transition = 'height 0.22s ease';
+          results.style.height = endH + 'px';
+          clearTimeout(results._ht);
+          results._ht = setTimeout(function () {
+            results.style.transition = '';
+            results.style.overflow = '';
+            results.style.height = ''; // release back to auto
+          }, 240);
+        }
+
         function render(matches, q) {
+          var wasOpen = results.classList.contains('open');
+          var startH = wasOpen ? results.offsetHeight : null;
           results.innerHTML = '';
           active = -1; current = matches;
-          if (!q) { results.classList.remove('open'); return; }
+          if (!q) { close(); return; }
           if (!matches.length) {
             var empty = document.createElement('li');
             empty.className = 'search-empty';
@@ -121,6 +149,7 @@
             });
           }
           results.classList.add('open');
+          if (wasOpen) slideHeight(startH);
         }
 
         function run() {
