@@ -37,7 +37,10 @@
   <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $siteTitle }}">
   {{ end -}}
 
-  <link rel="stylesheet" type="text/css" href="{{ "css/style.css" | relURL }}">
+  {{- with resources.Get "css/style.css" }}
+  {{- $css := . | minify | fingerprint "sha256" }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  {{- end }}
 
   <!-- Set theme before paint to avoid flash -->
   <script>
