@@ -42,9 +42,12 @@
   <!-- Set theme before paint to avoid flash -->
   <script>
     (function () {
-      var t = localStorage.getItem('theme');
-      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', t);
+      var pref = localStorage.getItem('theme') || 'auto';
+      var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var applied = pref === 'auto' ? (sysDark ? 'dark' : 'light') : pref;
+      var el = document.documentElement;
+      el.setAttribute('data-theme', applied);
+      el.setAttribute('data-theme-pref', pref);
     })();
   </script>
 </head>

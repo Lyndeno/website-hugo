@@ -134,11 +134,17 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
 #topbar .topbar-title { font-weight: 700; font-size: 1.1rem; color: var(--text); flex: 1; }
 #topbar button {
   background: none; border: none; cursor: pointer;
-  color: var(--text); display: inline-flex; padding: 0.3rem;
+  color: var(--text); display: inline-flex;
+  align-items: center; justify-content: center; padding: 0.3rem;
 }
+/* Toggle shows the active preference: light (sun), dark (moon), auto (monitor).
+   Defaults to the auto icon when no preference attribute is present (no-JS). */
+.theme-toggle .icon-sun,
 .theme-toggle .icon-moon { display: none; }
-[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
-[data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+[data-theme-pref="light"] .theme-toggle .icon-monitor,
+[data-theme-pref="dark"] .theme-toggle .icon-monitor { display: none; }
+[data-theme-pref="light"] .theme-toggle .icon-sun { display: block; }
+[data-theme-pref="dark"] .theme-toggle .icon-moon { display: block; }
 
 /* Desktop theme toggle floats top-right of content */
 #topbar { }

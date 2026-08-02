@@ -6,7 +6,7 @@
     <button id="sidebar-toggle" aria-label="Toggle menu">{{ partial "icon.html" "menu" }}</button>
     <a class="topbar-title" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-      {{ partial "icon.html" "sun" }}{{ partial "icon.html" "moon" }}
+      {{ partial "icon.html" "sun" }}{{ partial "icon.html" "moon" }}{{ partial "icon.html" "monitor" }}
     </button>
   </header>
 
@@ -23,15 +23,27 @@
 
   <script>
     (function () {
+      var el = document.documentElement;
+      var mql = window.matchMedia('(prefers-color-scheme: dark)');
+      function apply(pref) {
+        var applied = pref === 'auto' ? (mql.matches ? 'dark' : 'light') : pref;
+        el.setAttribute('data-theme', applied);
+        el.setAttribute('data-theme-pref', pref);
+      }
       var toggle = document.getElementById('theme-toggle');
       if (toggle) {
+        var order = ['light', 'dark', 'auto'];
         toggle.addEventListener('click', function () {
-          var cur = document.documentElement.getAttribute('data-theme');
-          var next = cur === 'dark' ? 'light' : 'dark';
-          document.documentElement.setAttribute('data-theme', next);
+          var cur = el.getAttribute('data-theme-pref') || 'auto';
+          var next = order[(order.indexOf(cur) + 1) % order.length];
           localStorage.setItem('theme', next);
+          apply(next);
         });
       }
+      // Track OS changes live while in auto mode.
+      mql.addEventListener('change', function () {
+        if ((el.getAttribute('data-theme-pref') || 'auto') === 'auto') apply('auto');
+      });
       var sbToggle = document.getElementById('sidebar-toggle');
       var overlay = document.getElementById('page-overlay');
       function closeSidebar() { document.body.classList.remove('sidebar-open'); }
