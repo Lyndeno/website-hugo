@@ -2,7 +2,6 @@
 title: "Lyndon Sanche"
 ---
 
-Hi, I'm Lyndon — a software developer and Electrical Engineer in Training. I like
-to write Nix and Rust code, tinker with Linux, and occasionally write about it
-here. Take a look at my [posts](/posts/), learn more [about me](/about/), or see
-what I offer in [consulting](/consulting/).
+Hello, I'm Lyndon — a Senior Software Developer specializing in modular architecture design, with an emphasis on Nix/NixOS and Rust solutions.
+When I am not at my day job, I like to tinker with Nix, Rust, and lately, LLMs.
+When I have something I think is worth sharing, I'll write it here.
