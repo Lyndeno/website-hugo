@@ -20,7 +20,7 @@ enableRobotsTXT = true
 
 [params]
   description = "Lyndon Sanche is a software developer and open source enthusiast. He likes to write Nix and Rust code."
-  tagline = "Software Developer, Electrical Engineer in Training"
+  tagline = "Senior Software Developer, BSc. Electrical Engineering"
   author = "Lyndon Sanche"
   email = "lsanche@lyndeno.ca"
   avatar = "/assets/img/avatar.jpg"

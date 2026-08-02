@@ -4,7 +4,10 @@
 <body>
   <header id="topbar">
     <button id="sidebar-toggle" aria-label="Toggle menu">{{ partial "icon.html" "menu" }}</button>
-    <a class="topbar-title" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+    <div class="topbar-title">
+      <a class="topbar-site" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+      {{- if and .IsPage (not .Date.IsZero) }}<span class="topbar-post">{{ .Title }}</span>{{ end }}
+    </div>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
       {{ partial "icon.html" "sun" }}{{ partial "icon.html" "moon" }}{{ partial "icon.html" "monitor" }}
     </button>
@@ -51,6 +54,17 @@
         document.body.classList.toggle('sidebar-open');
       });
       if (overlay) overlay.addEventListener('click', closeSidebar);
+
+      // Swap the mobile topbar to the post title once the heading scrolls
+      // past the bar. Only runs on posts (both elements present).
+      var postTitle = document.querySelector('.post-title');
+      var topbarPost = document.querySelector('.topbar-post');
+      if (postTitle && topbarPost && 'IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          document.body.classList.toggle('title-scrolled', !entries[0].isIntersecting);
+        }, { rootMargin: '-52px 0px 0px 0px', threshold: 0 });
+        obs.observe(postTitle);
+      }
     })();
   </script>
 </body>

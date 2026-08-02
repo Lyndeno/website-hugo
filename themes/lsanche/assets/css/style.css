@@ -139,7 +139,24 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   #topbar { background: var(--bg); }
 }
-#topbar .topbar-title { font-weight: 700; font-size: 1.1rem; color: var(--text); flex: 1; }
+#topbar .topbar-title {
+  position: relative; flex: 1; min-width: 0;
+  font-weight: 700; font-size: 1.1rem; color: var(--text);
+  line-height: 1.3;
+}
+/* Site name and post title overlap; cross-fade between them on scroll. */
+#topbar .topbar-site,
+#topbar .topbar-post {
+  display: block; color: var(--text); text-decoration: none;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: opacity 0.2s ease;
+}
+#topbar .topbar-post {
+  position: absolute; top: 0; left: 0; right: 0;
+  opacity: 0; pointer-events: none;
+}
+.title-scrolled #topbar .topbar-site { opacity: 0; pointer-events: none; }
+.title-scrolled #topbar .topbar-post { opacity: 1; pointer-events: auto; }
 #topbar button {
   background: none; border: none; cursor: pointer;
   color: var(--text); display: inline-flex;
