@@ -412,6 +412,8 @@ pre code { background: none; padding: 0; }
     width: auto; border: none; padding: 0.8rem 1.2rem;
   }
   #topbar::before { display: none; }
+  /* Keep a long post title clear of the floating search/theme controls. */
+  #content .post { padding-top: 2.25rem; }
   #topbar #sidebar-toggle, #topbar .topbar-title { display: none; }
   #topbar .search-toggle { display: none; }
   #topbar .search-panel { display: block; }
