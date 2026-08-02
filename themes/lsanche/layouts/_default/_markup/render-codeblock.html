@@ -1,0 +1,3 @@
+{{- /* Trim the code's trailing newline, which Chroma would otherwise render as
+       an extra blank line at the bottom of every code block. */ -}}
+{{- highlight (trim .Inner "\n") .Type .Options -}}
