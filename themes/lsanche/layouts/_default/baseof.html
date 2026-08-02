@@ -8,6 +8,14 @@
       <a class="topbar-site" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
       {{- if and .IsPage (not .Date.IsZero) }}<span class="topbar-post">{{ .Title }}</span>{{ end }}
     </div>
+    <div id="search" class="search" data-index="{{ "index.json" | relURL }}">
+      <button id="search-toggle" class="search-toggle" aria-label="Search">{{ partial "icon.html" "search" }}</button>
+      <div class="search-box">
+        {{ partial "icon.html" "search" }}
+        <input id="search-input" class="search-input" type="search" placeholder="Search…" autocomplete="off" aria-label="Search posts">
+        <ul id="search-results" class="search-results" role="listbox"></ul>
+      </div>
+    </div>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
       {{ partial "icon.html" "sun" }}{{ partial "icon.html" "moon" }}{{ partial "icon.html" "monitor" }}
     </button>
@@ -64,6 +72,94 @@
           document.body.classList.toggle('title-scrolled', !entries[0].isIntersecting);
         }, { rootMargin: '-52px 0px 0px 0px', threshold: 0 });
         obs.observe(postTitle);
+      }
+
+      // Live client-side search.
+      var searchEl = document.getElementById('search');
+      var input = document.getElementById('search-input');
+      var results = document.getElementById('search-results');
+      var searchBtn = document.getElementById('search-toggle');
+      if (searchEl && input && results) {
+        var indexUrl = searchEl.getAttribute('data-index');
+        var data = null, loading = null, active = -1, current = [];
+
+        function load() {
+          if (data) return Promise.resolve(data);
+          if (!loading) loading = fetch(indexUrl).then(function (r) { return r.json(); })
+            .then(function (d) { data = d; return d; });
+          return loading;
+        }
+
+        function close() {
+          results.classList.remove('open');
+          results.innerHTML = '';
+          active = -1; current = [];
+        }
+
+        function render(matches, q) {
+          results.innerHTML = '';
+          active = -1; current = matches;
+          if (!q) { results.classList.remove('open'); return; }
+          if (!matches.length) {
+            var empty = document.createElement('li');
+            empty.className = 'search-empty';
+            empty.textContent = 'No results for “' + q + '”';
+            results.appendChild(empty);
+          } else {
+            matches.slice(0, 8).forEach(function (m, i) {
+              var li = document.createElement('li');
+              var a = document.createElement('a');
+              a.href = m.url;
+              a.dataset.i = i;
+              var t = document.createElement('span'); t.className = 'search-r-title'; t.textContent = m.title;
+              var s = document.createElement('span'); s.className = 'search-r-summary'; s.textContent = m.summary;
+              a.appendChild(t); a.appendChild(s);
+              li.appendChild(a);
+              results.appendChild(li);
+            });
+          }
+          results.classList.add('open');
+        }
+
+        function run() {
+          var q = input.value.trim();
+          if (!q) { close(); return; }
+          var ql = q.toLowerCase();
+          load().then(function (items) {
+            var matches = items.filter(function (it) {
+              return (it.title && it.title.toLowerCase().indexOf(ql) !== -1)
+                || (it.tags && it.tags.toLowerCase().indexOf(ql) !== -1)
+                || (it.content && it.content.toLowerCase().indexOf(ql) !== -1);
+            });
+            render(matches, q);
+          });
+        }
+
+        function highlight() {
+          var links = results.querySelectorAll('a');
+          links.forEach(function (a, i) { a.classList.toggle('active', i === active); });
+          if (active >= 0 && links[active]) links[active].scrollIntoView({ block: 'nearest' });
+        }
+
+        input.addEventListener('input', run);
+        input.addEventListener('focus', load);
+        input.addEventListener('keydown', function (e) {
+          var links = results.querySelectorAll('a');
+          if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, links.length - 1); highlight(); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); highlight(); }
+          else if (e.key === 'Enter' && active >= 0 && links[active]) { e.preventDefault(); window.location = links[active].href; }
+          else if (e.key === 'Escape') { close(); input.blur(); document.body.classList.remove('search-open'); }
+        });
+
+        if (searchBtn) searchBtn.addEventListener('click', function () {
+          var open = document.body.classList.toggle('search-open');
+          if (open) { load(); setTimeout(function () { input.focus(); }, 30); }
+          else close();
+        });
+
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('#search')) { close(); document.body.classList.remove('search-open'); }
+        });
       }
     })();
   </script>

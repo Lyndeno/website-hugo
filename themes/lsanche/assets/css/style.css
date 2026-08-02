@@ -177,6 +177,56 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
 #topbar { }
 
 /* ---------------------------------------------------------------------------
+   Search (frosted pill + live dropdown)
+   --------------------------------------------------------------------------- */
+.search { position: relative; display: flex; align-items: center; }
+
+.search-box {
+  display: none; /* shown inline on desktop, or full-width when open on mobile */
+  position: relative; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--border); border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--topbar-bg);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+}
+.search-box .icon { flex-shrink: 0; }
+.search-input {
+  border: none; background: none; outline: none;
+  color: var(--text); font: inherit; width: 150px; max-width: 42vw;
+}
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-results {
+  display: none; list-style: none; margin: 0; padding: 0.3rem;
+  position: absolute; top: calc(100% + 0.45rem); left: 0; right: 0;
+  max-height: 65vh; overflow-y: auto; z-index: 120;
+  border: 1px solid var(--border); border-radius: 14px;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.18);
+  background: var(--topbar-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block; padding: 0.5rem 0.6rem; border-radius: 9px; color: var(--text);
+}
+.search-results a:hover,
+.search-results a.active { background: var(--bg-soft); text-decoration: none; }
+.search-r-title { display: block; font-weight: 600; font-size: 0.95rem; }
+.search-r-summary {
+  display: block; font-size: 0.8rem; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.search-empty { padding: 0.5rem 0.6rem; color: var(--text-muted); font-size: 0.9rem; }
+
+/* Frosted fallback where backdrop-filter is unsupported. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .search-box, .search-results { background: var(--bg-soft); }
+}
+
+/* ---------------------------------------------------------------------------
    Main content
    --------------------------------------------------------------------------- */
 #main {
@@ -332,6 +382,13 @@ pre code { background: none; padding: 0; }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     #sidebar { background: var(--sidebar-bg); }
   }
+  /* Mobile search: icon in the bar expands to a full-width frosted field. */
+  body.search-open .search-box {
+    display: flex;
+    position: fixed; top: 3.25rem; left: 0.6rem; right: 0.6rem; z-index: 110;
+  }
+  body.search-open .search-input { flex: 1; width: auto; max-width: none; }
+
   body.sidebar-open #sidebar { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.4); }
   body.sidebar-open #page-overlay {
     display: block; position: fixed; inset: 0; z-index: 95;
@@ -347,6 +404,9 @@ pre code { background: none; padding: 0; }
     -webkit-backdrop-filter: none; backdrop-filter: none;
   }
   #topbar #sidebar-toggle, #topbar .topbar-title { display: none; }
+  #topbar .search-toggle { display: none; }
+  #topbar .search-box { display: flex; }
+  #topbar .search-results { left: auto; right: 0; width: 340px; max-width: 80vw; }
   #topbar #theme-toggle {
     background: var(--topbar-bg); border: 1px solid var(--border);
     border-radius: 50%; width: 40px; height: 40px; justify-content: center;

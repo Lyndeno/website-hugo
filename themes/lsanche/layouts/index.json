@@ -1,0 +1,15 @@
+{{- $index := slice -}}
+{{- $pages := where .Site.RegularPages "Params.redirect_url" nil -}}
+{{- range $pages -}}
+  {{- $tags := "" -}}
+  {{- with .Params.tags }}{{ $tags = delimit . " " }}{{ end -}}
+  {{- $index = $index | append (dict
+      "title" .Title
+      "url" .RelPermalink
+      "summary" (.Summary | plainify | truncate 160)
+      "content" (.Plain | truncate 2000)
+      "tags" $tags
+      "section" .Section
+  ) -}}
+{{- end -}}
+{{- $index | jsonify -}}

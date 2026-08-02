@@ -6,7 +6,7 @@ enableRobotsTXT = true
 
 # Generate an RSS feed for the whole site and for the posts section.
 [outputs]
-  home = ["HTML", "RSS"]
+  home = ["HTML", "RSS", "JSON"]
   section = ["HTML", "RSS"]
 
 # Emit the RSS feed as /feed.xml to match the old Jekyll site.
