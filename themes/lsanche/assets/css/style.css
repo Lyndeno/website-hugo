@@ -22,6 +22,7 @@
   --link: #2a55c7;
   --link-hover: #1b3a8f;
   --sidebar-bg: linear-gradient(160deg, #2a1e6b 0%, #3b2f8f 100%);
+  --sidebar-bg-blur: linear-gradient(160deg, rgba(42, 30, 107, 0.8) 0%, rgba(59, 47, 143, 0.8) 100%);
   --sidebar-text: #f4f2ff;
   --sidebar-muted: #c8c2ec;
   --sidebar-active: #ffffff;
@@ -40,6 +41,7 @@
   --link: #7aa2f7;
   --link-hover: #a7c0ff;
   --sidebar-bg: linear-gradient(160deg, #17142e 0%, #241d52 100%);
+  --sidebar-bg-blur: linear-gradient(160deg, rgba(23, 20, 46, 0.8) 0%, rgba(36, 29, 82, 0.8) 100%);
   --sidebar-text: #eceaff;
   --sidebar-muted: #a49fce;
   --sidebar-active: #ffffff;
@@ -322,11 +324,18 @@ pre code { background: none; padding: 0; }
     transform: translateX(-100%);
     transition: transform 0.25s ease;
     width: 82%; max-width: 320px;
+    background: var(--sidebar-bg-blur);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    backdrop-filter: blur(18px) saturate(180%);
+  }
+  /* Fall back to the opaque sidebar where backdrop-filter is unsupported. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    #sidebar { background: var(--sidebar-bg); }
   }
   body.sidebar-open #sidebar { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.4); }
   body.sidebar-open #page-overlay {
     display: block; position: fixed; inset: 0; z-index: 95;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.28);
   }
 }
 
