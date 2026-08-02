@@ -132,14 +132,19 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
   position: sticky; top: 0; z-index: 90;
   align-items: center; gap: 0.75rem;
   padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+/* Frost lives on a pseudo-element so #topbar is not a backdrop-filter root
+   (which would break backdrop-filter on the search dropdown inside it). */
+#topbar::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
   background: var(--topbar-bg);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   backdrop-filter: blur(12px) saturate(180%);
-  border-bottom: 1px solid var(--border);
 }
 /* Progressive fallback: if backdrop-filter is unsupported, use the opaque bg. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  #topbar { background: var(--bg); }
+  #topbar::before { background: var(--bg); }
 }
 #topbar .topbar-title {
   position: relative; flex: 1; min-width: 0;
@@ -181,9 +186,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
    --------------------------------------------------------------------------- */
 .search { position: relative; display: flex; align-items: center; }
 
+/* The panel wraps the input pill and the results, and is the positioning
+   context for the dropdown. Kept free of backdrop-filter so the dropdown's
+   own blur samples the page (a filtered ancestor would blank it out). */
+.search-panel { display: none; position: relative; }
+
 .search-box {
-  display: none; /* shown inline on desktop, or full-width when open on mobile */
-  position: relative; align-items: center; gap: 0.4rem;
+  display: flex; align-items: center; gap: 0.4rem;
   padding: 0.3rem 0.75rem;
   border: 1px solid var(--border); border-radius: 999px;
   color: var(--text-muted);
@@ -383,8 +392,8 @@ pre code { background: none; padding: 0; }
     #sidebar { background: var(--sidebar-bg); }
   }
   /* Mobile search: icon in the bar expands to a full-width frosted field. */
-  body.search-open .search-box {
-    display: flex;
+  body.search-open .search-panel {
+    display: block;
     position: fixed; top: 3.25rem; left: 0.6rem; right: 0.6rem; z-index: 110;
   }
   body.search-open .search-input { flex: 1; width: auto; max-width: none; }
@@ -400,12 +409,12 @@ pre code { background: none; padding: 0; }
 @media (min-width: 901px) {
   #topbar {
     display: flex; position: fixed; top: 0; right: 0; left: auto;
-    width: auto; background: none; border: none; padding: 0.8rem 1.2rem;
-    -webkit-backdrop-filter: none; backdrop-filter: none;
+    width: auto; border: none; padding: 0.8rem 1.2rem;
   }
+  #topbar::before { display: none; }
   #topbar #sidebar-toggle, #topbar .topbar-title { display: none; }
   #topbar .search-toggle { display: none; }
-  #topbar .search-box { display: flex; }
+  #topbar .search-panel { display: block; }
   #topbar .search-results { left: auto; right: 0; width: 340px; max-width: 80vw; }
   #topbar #theme-toggle {
     background: var(--topbar-bg); border: 1px solid var(--border);

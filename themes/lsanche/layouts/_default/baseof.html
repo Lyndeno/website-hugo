@@ -10,9 +10,11 @@
     </div>
     <div id="search" class="search" data-index="{{ "index.json" | relURL }}">
       <button id="search-toggle" class="search-toggle" aria-label="Search">{{ partial "icon.html" "search" }}</button>
-      <div class="search-box">
-        {{ partial "icon.html" "search" }}
-        <input id="search-input" class="search-input" type="search" placeholder="Search…" autocomplete="off" aria-label="Search posts">
+      <div class="search-panel">
+        <div class="search-box">
+          {{ partial "icon.html" "search" }}
+          <input id="search-input" class="search-input" type="search" placeholder="Search…" autocomplete="off" aria-label="Search posts">
+        </div>
         <ul id="search-results" class="search-results" role="listbox"></ul>
       </div>
     </div>
