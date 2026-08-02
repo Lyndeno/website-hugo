@@ -88,7 +88,7 @@ enableRobotsTXT = true
   lineNumbersInTable = true
   tabWidth = 4
   noClasses = true
-  style = "dracula"
+  style = "gruvbox"
 
 [markup.goldmark.renderer]
   unsafe = true
