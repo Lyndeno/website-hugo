@@ -3,8 +3,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
-    pre-commit-hooks-nix = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -16,11 +16,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "";
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs: inputs.blueprint {
-    inherit inputs;
-    prefix = "nix/";
-    systems = ["x86_64-linux" "aarch64-linux"];
-  };
+  outputs = inputs:
+    inputs.blueprint {
+      inherit inputs;
+      prefix = "nix/";
+      systems = ["x86_64-linux" "aarch64-linux"];
+    };
 }

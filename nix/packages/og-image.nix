@@ -1,8 +1,8 @@
-
 # 1200x630 social-share banner generated from the avatar: brand gradient
 # background, circular avatar with a light ring, name, tagline and domain.
-{pkgs, ...}: pkgs.runCommand "og-default.jpg" {
-  nativeBuildInputs = [ pkgs.imagemagick ];
+{pkgs, ...}:
+pkgs.runCommand "og-default.jpg" {
+  nativeBuildInputs = [pkgs.imagemagick];
 } ''
   bold=${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuSans-Bold.ttf
   reg=${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuSans.ttf
