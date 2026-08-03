@@ -267,6 +267,14 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
   flex: 1;
 }
 
+/* Cross-page fade: content fades in on load and out before navigating.
+   Skipped entirely when the user prefers reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  #content { animation: content-fade-in 0.28s ease; }
+  @keyframes content-fade-in { from { opacity: 0; } to { opacity: 1; } }
+  body.is-leaving #content { opacity: 0; transition: opacity 0.18s ease; }
+}
+
 /* Desktop floating theme toggle */
 @media (min-width: 901px) {
   #main::before { content: ""; }

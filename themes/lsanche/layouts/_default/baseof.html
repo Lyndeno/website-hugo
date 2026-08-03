@@ -193,6 +193,31 @@
         });
       }
     })();
+
+    // Cross-page fade: fade the content out before same-site navigations;
+    // CSS fades it back in on the next load.
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.addEventListener('click', function (e) {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        var a = e.target.closest('a');
+        if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+        var href = a.getAttribute('href');
+        if (!href || href.charAt(0) === '#') return;
+        var url = new URL(a.href, location.href);
+        if (url.origin !== location.origin) return;
+        // In-page anchor on the current page: let the browser jump, no fade.
+        if (url.pathname === location.pathname && url.hash) return;
+        e.preventDefault();
+        document.body.classList.add('is-leaving');
+        setTimeout(function () { location.href = a.href; }, 180);
+      });
+      // Restored from the back/forward cache: clear the leaving state so the
+      // page isn't stuck invisible.
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) document.body.classList.remove('is-leaving');
+      });
+    })();
   </script>
 </body>
 </html>
