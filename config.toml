@@ -24,6 +24,8 @@ enableRobotsTXT = true
   author = "Lyndon Sanche"
   email = "lsanche@lyndeno.ca"
   avatar = "/assets/img/avatar.jpg"
+  # Default 1200x630 social-share banner; per-post `image` front matter overrides it.
+  ogImage = "/assets/img/og-default.jpg"
   dateFormat = "Jan 2, 2006"
 
   [[params.social]]

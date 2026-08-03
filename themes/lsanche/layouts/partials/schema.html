@@ -2,7 +2,7 @@
        Posts -> BlogPosting; home -> WebSite; other pages -> WebPage. */ -}}
 {{- $desc := .Params.description | default .Summary | default .Site.Params.description -}}
 {{- $desc = $desc | plainify | htmlUnescape | truncate 200 -}}
-{{- $image := (.Params.image | default .Site.Params.avatar) | absURL -}}
+{{- $image := (.Params.image | default .Site.Params.ogImage | default .Site.Params.avatar) | absURL -}}
 {{- $author := dict "@type" "Person" "name" .Site.Params.author "url" .Site.BaseURL -}}
 {{- $publisher := dict
       "@type" "Person"

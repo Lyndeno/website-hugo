@@ -13,8 +13,10 @@
   <meta name="description" content="{{ $desc }}">
   {{- with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
 
-  {{- /* Social-share image: per-page `image` param, else the site avatar. */ -}}
-  {{- $image := .Params.image | default .Site.Params.avatar -}}
+  {{- /* Social-share image: per-page `image`, else the wide OG banner, else avatar. */ -}}
+  {{- $ogBanner := .Site.Params.ogImage -}}
+  {{- $image := .Params.image | default $ogBanner | default .Site.Params.avatar -}}
+  {{- $usingBanner := and (not .Params.image) $ogBanner -}}
   {{- $image = $image | absURL -}}
   {{- /* Treat only pages in the posts section as articles. */ -}}
   {{- $isPost := and .IsPage (eq .Section "posts") -}}
@@ -29,6 +31,10 @@
   {{- with $image }}
   <meta property="og:image" content="{{ . }}">
   <meta property="og:image:alt" content="{{ $fullTitle }}">
+  {{- if $usingBanner }}
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  {{- end }}
   {{- end }}
   {{- if $isPost }}
   <meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
