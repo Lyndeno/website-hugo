@@ -330,6 +330,16 @@ pre {
   overflow-x: auto; line-height: 1.45;
 }
 pre code { background: none; padding: 0; }
+/* Dark gruvbox scrollbars for code blocks (they stay dark in both site
+   themes), so the pan bar isn't a bright default bar on the dark code bg. */
+pre {
+  scrollbar-width: thin;
+  scrollbar-color: #665c54 #3c3836;
+}
+pre::-webkit-scrollbar { height: 10px; width: 10px; }
+pre::-webkit-scrollbar-track { background: #3c3836; }
+pre::-webkit-scrollbar-thumb { background: #665c54; border-radius: 6px; }
+pre::-webkit-scrollbar-thumb:hover { background: #928374; }
 .highlight { margin: 1.2rem 0; border-radius: var(--radius); overflow: hidden; }
 .highlight pre { margin: 0; }
 /* Inline line numbers: right-align to a fixed width so the code column stays
