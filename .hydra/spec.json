@@ -1,0 +1,45 @@
+{
+  "checkinterval": 300,
+  "description": "Jobset evaluation for Lyndeno/website-hugo",
+  "emailoverride": "",
+  "enabled": 1,
+  "enableemail": false,
+  "hidden": false,
+  "inputs": {
+    "nixexpr": {
+      "emailresponsible": false,
+      "type": "git",
+      "value": "https://github.com/Lyndeno/ci master"
+    },
+    "nixpkgs": {
+      "emailresponsible": false,
+      "type": "git",
+      "value": "https://github.com/NixOS/nixpkgs nixos-unstable"
+    },
+    "owner": {
+      "emailresponsible": false,
+      "type": "string",
+      "value": "Lyndeno"
+    },
+    "pulls": {
+      "emailresponsible": false,
+      "type": "githubpulls",
+      "value": "Lyndeno website-hugo"
+    },
+    "refs": {
+      "emailresponsible": false,
+      "type": "github_refs",
+      "value": "Lyndeno website-hugo heads"
+    },
+    "repo": {
+      "emailresponsible": false,
+      "type": "string",
+      "value": "website-hugo"
+    }
+  },
+  "keepnr": 1,
+  "nixexprinput": "nixexpr",
+  "nixexprpath": "hydra/jobsets.nix",
+  "schedulingshares": 100,
+  "type": 0
+}

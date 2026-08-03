@@ -1,0 +1,27 @@
+pull_request_rules:
+- actions:
+    merge:
+      method: merge
+  conditions:
+  - author=dependabot[bot]
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.devshell-default
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.git-hooks
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.hydra-spec
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.mergify
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-default
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-formatter
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-hydra-spec
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-mergify
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-og-image
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-website
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.devshell-default
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.git-hooks
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.hydra-spec
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.mergify
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-default
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-formatter
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-hydra-spec
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-mergify
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-og-image
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-website
+  name: Automatically merge dependabot updates
