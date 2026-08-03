@@ -1,0 +1,7 @@
+{{- with .Params.tags }}
+<div class="post-tags">
+  {{- range . }}
+  <a class="tag-btn" href="{{ (print "/tags/" (. | urlize) "/") | relURL }}">#{{ . }}</a>
+  {{- end }}
+</div>
+{{- end }}
