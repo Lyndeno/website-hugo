@@ -447,6 +447,16 @@ pre::-webkit-scrollbar-thumb:hover { background: #928374; }
   }
 }
 
+/* On large screens, center the identity + nav cluster vertically so the menu
+   sits nearer eye level, while the social icons stay pinned to the bottom.
+   Equal auto-margins above the identity and above the social row split the
+   free space evenly, centering the cluster in the space above the icons. */
+@media (min-width: 901px) {
+  .sidebar-nav { flex: 0 0 auto; }
+  .site-identity { margin-top: auto; }
+  .sidebar-social { margin-top: auto; }
+}
+
 /* On desktop, keep a theme toggle reachable: show topbar toggle floating */
 @media (min-width: 901px) {
   #topbar {
