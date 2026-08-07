@@ -2,76 +2,80 @@
 title: Consulting
 ---
 
-## Specialized Infrastructure & Testing Solutions
+## Nix Infrastructure & Embedded Systems Consulting
 
-I help organizations build reliable, reproducible systems through declarative infrastructure, secure embedded computing, and robust automated testing. With deep expertise in Nix, Rust, Linux kernel development, and OP-TEE, I solve complex technical challenges that require both systems-level knowledge and modern DevOps practices.
+Flaky builds, unreproducible environments, and slow CI pipelines cost your team time every day. I fix that by making your entire stack declarative, versionable, and auditable with Nix.
+
+I specialize in reproducible build infrastructure, embedded Linux, and systems programming in Rust. I maintain packages in nixpkgs, contribute to the Linux kernel, and have introduced Nix across firmware and software teams in production environments.
 
 ## What I Offer
 
 ### Declarative Infrastructure with Nix
 
-Transform your build and deployment pipelines into reproducible, maintainable systems. I leverage Nix to create infrastructure that eliminates "works on my machine" problems and makes your entire stack versionable and auditable.
+Most build systems accumulate hidden state over time. Nix eliminates that by making every dependency explicit and every build reproducible from source. I have used this in production across firmware, kiosk systems, and CI/CD pipelines.
 
 **I can help you:**
-- Design and implement Nix-based CI/CD pipelines that guarantee reproducible builds across environments
+- Design and implement Nix-based CI/CD pipelines for reproducible builds across environments
 - Migrate legacy build systems to declarative Nix configurations
-- Create custom NixOS modules for your specific infrastructure needs
-- Build containerized and VM-based testing environments that spin up instantly
-- Develop reproducible development environments that work identically for every team member
+- Write custom NixOS modules for your specific infrastructure needs
+- Build containerized and VM-based testing environments that spin up in seconds
+- Create development environments that work identically for every team member
 
 ### Automated Testing & Quality Assurance
 
-Drawing on recent work automating testing for Linux-based kiosk systems, I build comprehensive testing frameworks that catch issues before they reach production.
+Testing embedded and Linux-based systems is hard because the environment matters as much as the code.
+I build test infrastructure that runs your software in environments that mirror production exactly, using NixOS VM orchestration and hardware-in-the-loop setups.
 
 **Services include:**
-- Multi-service integration testing with automated orchestration
-- Kiosk and embedded system testing automation
-- Continuous testing pipelines integrated with your existing tools
-- Test environment provisioning that mirrors production exactly
+- Integration testing across multiple services with automated orchestration
+- Kiosk and embedded system test automation
+- Continuous testing pipelines integrated with your existing CI tools
+- Test environments provisioned from the same Nix configuration as production
+- QEMU-based virtual hardware testbeds for testing firmware and embedded software without physical devices
 
 ### Secure Embedded Systems
 
-With specialized knowledge of OP-TEE (Open Portable Trusted Execution Environment), I help you implement security at the hardware level for IoT, embedded devices, and secure computing applications.
+Security in embedded systems has to be built into the hardware, not bolted on afterward. I implement trusted execution environments and hardware-backed security primitives for devices where compromise is not an option.
 
 **Expertise in:**
-- OP-TEE integration and trusted application development
-- Hardware-backed cryptographic operations
+- OP-TEE trusted application development and integration
+- Hardware-backed cryptographic operations and secure key storage
+- ARM TrustZone implementation for secure/non-secure world isolation
+- Secure boot implementation for embedded Linux targets
 
 ### Systems Programming & Performance
 
-Built on a foundation of Rust and Linux kernel expertise, I can optimize your critical systems code for performance, reliability, and security.
+When correctness and performance are non-negotiable, I write systems code in Rust. I also work at the kernel level when the problem lives there, including driver development and platform support.
 
 **I specialize in:**
-- Rust development for systems where reliability is non-negotiable
-- Linux kernel driver development and debugging
+- Rust development for systems where reliability and memory safety are critical
+- Linux kernel driver development and platform support (current maintainer of Dell PC platform support)
 - Memory-safe refactoring of critical C codebases
-- Cross-platform systems software
+- Cross-compilation for embedded targets including aarch64
 
 ## Who I Work With
 
-My work typically fall into these categories:
+I work best with teams that have hard infrastructure problems and the technical appetite to solve them properly.
 
-- **DevOps and Platform** needing reproducible infrastructure and advanced automation
-- **Embedded Systems** building secure IoT devices, kiosks, or edge computing platforms
-- **Security-Focused** requiring trusted execution environments and hardware-level security
-- **Products** struggling with flaky tests, unreproducible builds, or complex multi-service architectures
+- **Platform and DevOps teams** struggling with unreproducible builds, slow CI, or brittle deployment pipelines
+- **Embedded and firmware teams** building secure IoT devices, kiosks, or edge computing platforms
+- **Security-focused teams** requiring trusted execution environments and hardware-level security primitives
+- **Product teams** dealing with flaky tests, complex multi-service architectures, or environment drift between development and production
 
 ## Engagement Models
 
-**Consulting Projects** - Fixed-scope work with clear deliverables, typically 2-8 weeks. Ideal for migrations, proof-of-concepts, or building specific infrastructure.
+**Consulting Projects** -- Fixed-scope work with defined deliverables, typically 2 to 8 weeks. Ideal for migrations, proof-of-concepts, or building specific infrastructure from scratch.
 
-**Retainer Arrangements** - Ongoing support and development for teams that need regular access to specialized expertise.
+**Retainer Arrangements** -- Ongoing access to specialized expertise for teams that need regular support, code review, or architectural guidance.
 
-**Architecture Review** - Focused engagement to evaluate your current systems and provide detailed recommendations with implementation roadmaps.
+**Architecture Review** -- A focused engagement to evaluate your current systems and deliver concrete recommendations with an implementation roadmap.
 
 ## Why Work With Me
 
-The technologies I specialize in—Nix, OP-TEE, Rust, and kernel development—represent a rare combination of skills. You're not just getting someone who knows these tools; you're getting someone who understands how to combine them to solve real-world problems in testing, security, and infrastructure.
+Nix, Rust, OP-TEE, and Linux kernel development is a rare combination. Most engineers know one or two of these deeply. I use all of them together in production, which means I can see problems that specialists in any single area would miss.
 
-I focus on building systems that are maintainable by your team after I'm gone, not creating dependencies on external expertise. Every engagement includes knowledge transfer, documentation, and clear explanations of architectural decisions.
+I also focus on leaving teams better than I found them. Every engagement includes knowledge transfer, documentation, and clear explanations of architectural decisions. You should understand what I built and why, not just that it works.
 
 ## Let's Talk
 
-If you're facing challenges with reproducible builds, complex testing scenarios, embedded security, or systems-level performance, I'd like to hear about them.
-
-If you are interested in my services, please contact me at [consulting@lyndeno.ca](mailto:consulting@lyndeno.ca)
+Have a build problem worth solving? Let's talk: [consulting@lyndeno.ca](mailto:consulting@lyndeno.ca)
