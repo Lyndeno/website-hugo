@@ -29,7 +29,7 @@ jobs:
       # Cache Nix builds so hugo, stdenv, imagemagick and fonts aren't
       # re-downloaded on every run.
       - name: Magic Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v14
+        uses: DeterminateSystems/magic-nix-cache-action@v15
 
       - name: Build site
         run: nix build .#website
