@@ -20,7 +20,7 @@ static site with a custom theme, built and deployed reproducibly with Nix.
 │       └── 2026/01-Jan/2026-01-16-nixos-repart-image.md
 ├── static/                # Copied verbatim to the site root
 │   ├── CNAME              # Custom domain for GitHub Pages (lyndeno.ca)
-│   └── assets/img/        # avatar.jpg, favicons/ (og-default.jpg is generated)
+│   └── assets/img/        # avatar.jpg, favicons/ (og-default.jpg and favicon images are generated)
 ├── themes/lsanche/        # The custom theme
 │   ├── assets/css/style.css   # All styling (fingerprinted at build time)
 │   ├── layouts/
@@ -73,6 +73,17 @@ avatar or the banner's design in `flake.nix`):
 
 ```bash
 nix build .#og-image && cp -L result static/assets/img/og-default.jpg
+```
+
+## Favicons
+
+The favicon PNGs and `favicon.ico` in `static/assets/img/favicons/` are also
+**not committed** — they are generated from `avatar.jpg` by the `favicons` Nix
+package and copied in by the production build. Only `manifest.json` and
+`browserconfig.xml` are tracked. Regenerate the local copies with:
+
+```bash
+nix build .#favicons && cp -L result/* static/assets/img/favicons/
 ```
 
 ## Writing a post
