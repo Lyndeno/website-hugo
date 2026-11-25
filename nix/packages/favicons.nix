@@ -1,11 +1,15 @@
 # Favicon set generated from the avatar, at the sizes referenced by head.html,
 # manifest.json and browserconfig.xml, plus a multi-resolution favicon.ico.
-{pkgs, ...}:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 pkgs.runCommand "favicons" {
   nativeBuildInputs = [pkgs.imagemagick];
 } ''
   mkdir -p $out
-  src=${../../static/assets/img/avatar.jpg}
+  src=${inputs.avatar}
 
   icon() {
     magick "$src" -resize "$1x$1^" -gravity center -extent "$1x$1" -strip "$out/$2"

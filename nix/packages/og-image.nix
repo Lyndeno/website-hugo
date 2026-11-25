@@ -1,6 +1,10 @@
 # 1200x630 social-share banner generated from the avatar: brand gradient
 # background, circular avatar with a light ring, name, tagline and domain.
-{pkgs, ...}:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 pkgs.runCommand "og-default.jpg" {
   nativeBuildInputs = [pkgs.imagemagick];
 } ''
@@ -12,7 +16,7 @@ pkgs.runCommand "og-default.jpg" {
     gradient:'#8f1927'-'#520c15' bg.png
 
   # Crop the avatar to a 300px circle.
-  magick ${../../static/assets/img/avatar.jpg} \
+  magick ${inputs.avatar} \
     -resize 300x300^ -gravity center -extent 300x300 \
     \( +clone -alpha transparent -fill white -draw 'circle 150,150 150,0' \) \
     -compose CopyOpacity -composite av.png
