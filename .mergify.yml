@@ -11,6 +11,7 @@ pull_request_rules:
   - check-success*=ci/hydra:website-hugo:*:aarch64-linux.hydra-spec
   - check-success*=ci/hydra:website-hugo:*:aarch64-linux.mergify
   - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-default
+  - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-favicons
   - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-formatter
   - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-hydra-spec
   - check-success*=ci/hydra:website-hugo:*:aarch64-linux.pkgs-mergify
@@ -21,6 +22,7 @@ pull_request_rules:
   - check-success*=ci/hydra:website-hugo:*:x86_64-linux.hydra-spec
   - check-success*=ci/hydra:website-hugo:*:x86_64-linux.mergify
   - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-default
+  - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-favicons
   - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-formatter
   - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-hydra-spec
   - check-success*=ci/hydra:website-hugo:*:x86_64-linux.pkgs-mergify
