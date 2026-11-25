@@ -1,0 +1,29 @@
+name: Update Avatar Input
+
+on:
+  schedule:
+    # Every day
+    - cron: '0 3 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v7
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+      - name: Update Nix Flake Inputs
+        run: nix flake update avatar
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8.1.0
+        with:
+          token: ${{ secrets.PTOKEN }}
+          base: master
+          branch: update/avatar
+          delete-branch: true
+          commit-message: Update avatar
+          title: Update avatar
