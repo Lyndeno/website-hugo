@@ -21,6 +21,12 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # GitHub profile photo; refresh with `nix flake update avatar`.
+    avatar = {
+      url = "file+https://github.com/Lyndeno.png";
+      flake = false;
+    };
   };
 
   outputs = inputs:

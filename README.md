@@ -20,7 +20,7 @@ static site with a custom theme, built and deployed reproducibly with Nix.
 │       └── 2026/01-Jan/2026-01-16-nixos-repart-image.md
 ├── static/                # Copied verbatim to the site root
 │   ├── CNAME              # Custom domain for GitHub Pages (lyndeno.ca)
-│   └── assets/img/        # avatar.jpg, favicons/ (og-default.jpg is generated)
+│   └── assets/img/        # avatar.jpg, favicons/ (og-default.jpg and favicon images are generated)
 ├── themes/lsanche/        # The custom theme
 │   ├── assets/css/style.css   # All styling (fingerprinted at build time)
 │   ├── layouts/
@@ -61,10 +61,22 @@ Deployment is automatic: pushing to `master` triggers
 `.github/workflows/deploy.yml`, which runs `nix build .#website` and publishes
 the result to GitHub Pages.
 
+## The avatar
+
+The headshot is **not committed** — it is the GitHub profile photo, pinned as
+the `avatar` flake input. The production build copies it to
+`static/assets/img/avatar.jpg`. After changing the GitHub photo, update the
+lock and refresh the local copy:
+
+```bash
+nix flake update avatar
+cp --no-preserve=mode "$(nix eval --raw --impure --expr '(builtins.getFlake (toString ./.)).inputs.avatar.outPath')" static/assets/img/avatar.jpg
+```
+
 ## The social-share banner (og-image)
 
 The 1200×630 link-preview image (`static/assets/img/og-default.jpg`) is **not
-committed** — it is generated from `static/assets/img/avatar.jpg` by the
+committed** — it is generated from the `avatar` input by the
 `og-image` Nix package (see `flake.nix`). The production build regenerates it
 automatically, but for a local `hugo server` preview you need a copy on disk.
 
@@ -73,6 +85,17 @@ avatar or the banner's design in `flake.nix`):
 
 ```bash
 nix build .#og-image && cp -L result static/assets/img/og-default.jpg
+```
+
+## Favicons
+
+The favicon PNGs and `favicon.ico` in `static/assets/img/favicons/` are also
+**not committed** — they are generated from the avatar by the `favicons` Nix
+package and copied in by the production build. Only `manifest.json` and
+`browserconfig.xml` are tracked. Regenerate the local copies with:
+
+```bash
+nix build .#favicons && cp -L result/* static/assets/img/favicons/
 ```
 
 ## Writing a post

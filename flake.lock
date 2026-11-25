@@ -1,5 +1,17 @@
 {
   "nodes": {
+    "avatar": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-dvSXkxh1pvXztFzDjzfyAenaXsXnmI4GZZ0hdlQIf2k=",
+        "type": "file",
+        "url": "https://github.com/Lyndeno.png"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/Lyndeno.png"
+      }
+    },
     "blueprint": {
       "inputs": {
         "nixpkgs": [
@@ -139,6 +151,7 @@
     },
     "root": {
       "inputs": {
+        "avatar": "avatar",
         "blueprint": "blueprint",
         "ci": "ci",
         "flake-utils": "flake-utils",
